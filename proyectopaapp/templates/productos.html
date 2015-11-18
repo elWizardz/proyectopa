@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Productos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+	
+<div class="row section-black">
+	<div class="col-lg-12">
+		<h1>Productos</h1>
+		<br><br>
+		<center><table class="tabla-style" name="tablaProcesos">
+			<tr>
+				<td class="tabla-header"><b>ID del Producto</b></td>
+				<td class="tabla-header"><b>Nombre del Producto</b></td>
+				<td class="tabla-header"><b>Tiempo de Entrada</b></td>
+			</tr>
+			{% for object in producto %}
+			<tr>
+				<td class="tabla-data">{{object.id}}</td>
+				<td class="tabla-data">{{object.nombre}}</td>
+				<td class="tabla-data">{{object.tiempoDeEntrada}}</td>
+			</tr>
+			{% endfor %}
+		</table></center>
+		<br><br>
+		<a class="btn btn-success" href="/productos/agregar/">Agregar Producto</a>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarProducto">Editar Producto</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrarProducto">Borrar Producto</button>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="row section-white">
+	<div class="col-lg-12">
+		<h3><center>Descripción</center></h3><br>
+		<p>En esta sección se muestran los productos que han sido agregados al sistema de manufactura. Puede dar de</p>
+		<p>alta un producto seleccionando el botón de Agregar Producto, puede modificar un producto seleccionando el</p>
+		<p>botón de Editar Producto, o puede dar de baja un producto con el botón de Borrar Producto.</p>
+		<br><br>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="modal fade" id="modalEditarProducto">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Editar Producto</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione el producto que desea editar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID del Producto:</b>
+						</td>
+						<td>
+							<select id="productosListEditar" name="productosListEditar">
+							{% for object in producto %}
+								<option> {{object.id}} </option>
+							{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="editarProductoButton" id="editarProductoButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+<div class="modal fade" id="modalBorrarProducto">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Borrar Producto</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione el producto que desea borrar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID del Producto:</b>
+						</td>
+						<td>
+							<select id="productosListBorrar" name="productosListBorrar">
+								{% for object in producto %}
+									<option> {{object.id}} </option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="borrarProductoButton" id="borrarProductoButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+{% endblock Content %}

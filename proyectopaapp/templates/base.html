@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Proyecto Final de Programación Avanzada">
+    <meta name="author" content="Antonio de Luna, Jose Luis Vivero, Alejandro Ramirez, Luis Lomelí & Alonso Wilhelmy">
+    <link rel="icon" href="/assets/res/favicon.ico">
+	
+	{% block Title %}
+    <title> Main - Sistema de Manufactura </title>
+	{% endblock Title %}
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/assets/css/custom.css" rel="stylesheet">
+	
+  </head>
+
+  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" style="padding-top:0px" href="/">
+					<img src="/assets/res/favicon.png" alt="logo" height="50">
+				</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from 'Procesos' link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="/"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll navbar-button" href="/procesos">Procesos</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll navbar-button" href="/lineasdeproduccion">Líneas de Producción</a>
+                    </li>
+					<li>
+                        <a class="page-scroll navbar-button" href="/productos">Productos</a>
+                    </li>
+                </ul>
+            </div> <!-- navbar-collapse -->
+        </div> <!-- container -->
+    </nav> <!-- navbar -->
+	
+	<div style="padding-top: 80px">
+	</div>
+	
+	{% block Content %}
+	<div class="container-fluid">
+		<!-- Intro Section -->
+		<div class="row section-black">
+			<div class="col-lg-12">
+				<h1>Sistema de Manufactura</h1><br>
+				<img src="/assets/res/favicon.png" alt="logogrande" height="200"><br><br><br><br>
+				<h3>Este es un sistema que permite controlar y detectar el estado de producción de un producto.</h3>
+				<br><br>
+				<h4><u>Cuenta con:</u></h4>
+				<br>
+				<span style="color: blue">
+					<p><b>
+						ABC de procesos<br>
+						ABC de líneas de producción<br>
+						Orden de productos<br>
+						Status de productos<br>
+						<i>*Tiempo estimado de producción</i>
+					</b></p>
+				</span>
+			</div> <!-- col -->
+		</div> <!-- row -->
+		
+		<!-- Equipo Section -->
+		<div class="row section-white">
+			<div class="col-lg-12">
+				<h3>Equipo</h3><br>
+				<p>
+					Antonio de Luna<br>
+					Jose Luis Vivero<br>
+					Alejandro Ramirez<br>
+					Luis Lomelí<br>
+					Alonso Wilhelmy<br>
+				</p>
+			</div> <!-- col -->
+		</div> <!-- row -->
+	</div> <!-- container-fluid -->
+	{% endblock Content %}
+	
+	<br><center>
+	Copyright © Sistema de Manufactura, Co.
+	</center><br><br>
+	
+	<!-- jQuery -->
+    <script src="/assets/js/jquery.js"></script>
+	
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+	
+    <!-- Scrolling Nav JavaScript -->
+    <script src="/assets/js/jquery.easing.min.js"></script>
+    <script src="/assets/js/scrolling-nav.js"></script>
+	
+	<!-- Custom Scripts -->
+	<script src="/assets/js/custom.js" type="text/javascript"></script>
+	
+	</body>
+</html>

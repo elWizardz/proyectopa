@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Procesos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+
+<div class="row section-black">
+	
+	<div class="col-lg-12">
+		<h1><center>Borrar Proceso<center></h1>
+		<br>
+		
+		<div>
+			<center><table class="tabla-style">
+				<tr>
+					<td class="tabla-header"><b>ID del Proceso</b></td>
+					<td class="tabla-header"><b>Nombre del Proceso</b></td>
+					<td class="tabla-header"><b>Tiempo requerido (horas)</b></td>
+				</tr>
+				<tr>
+					<td class="tabla-data">{{proceso.id}}</td>
+					<td class="tabla-data">{{proceso.nombre}}</td>
+					<td class="tabla-data">{{proceso.tiempo}}</td>
+				</tr>
+			</table></center>
+			<br><br>
+			<p><b>Seguro que desea borrar este proceso?</b></p>
+		</div>
+		
+		<form action="/procesos/borrar/{{proceso.id}}/" method="POST" role="form">
+		{% csrf_token %}
+			<br><br>
+			<button type="submit" class="btn btn-danger">Borrar</button>
+			<a class="btn btn-default" href="/procesos/">Cancelar</a>
+		</form>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock Content %}

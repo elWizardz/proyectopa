@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Productos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+
+<div class="row section-black">
+	
+	<div class="col-lg-12">
+		<h1><center>Borrar Producto<center></h1>
+		<br>
+		
+		<div>
+			<center><table class="tabla-style">
+				<tr>
+					<td class="tabla-header"><b>ID del Producto</b></td>
+					<td class="tabla-header"><b>Nombre del Producto</b></td>
+					<td class="tabla-header"><b>Tiempo de Entrada</b></td>
+				</tr>
+				<tr>
+					<td class="tabla-data">{{producto.id}}</td>
+					<td class="tabla-data">{{producto.nombre}}</td>
+					<td class="tabla-data">{{producto.tiempo}}</td>
+				</tr>
+			</table></center>
+			<br><br>
+			<p><b>Seguro que desea borrar este producto?</b></p>
+		</div>
+		
+		<form action="/productos/borrar/{{producto.id}}/" method="POST" role="form">
+		{% csrf_token %}
+			<br><br>
+			<button type="submit" class="btn btn-danger">Borrar</button>
+			<a class="btn btn-default" href="/productos/">Cancelar</a>
+		</form>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock Content %}

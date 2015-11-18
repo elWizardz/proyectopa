@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Procesos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+
+<div class="row section-black">
+	
+	<div class="col-lg-12">
+		<h1><center>Editar Proceso<center></h1>
+		<br>
+		{% if isAction %}
+			{% if isSuccess %}
+				<center><table>
+					<tr>
+						<td style="padding: 10px">
+							<img src="/assets/res/success.png" alt="Success" height="50">
+						</td>
+						<td style="padding: 10px">
+							<span style="color: green">
+								{{message}}
+							</span>
+						</td>
+					</tr>
+				</table></center>
+				<br>
+			{% else %}
+				<center><table>
+					<tr>
+						<td style="padding: 10px">
+							<img src="/assets/res/error.png" alt="Error" height="50">
+						</td>
+						<td style="padding: 10px">
+							<span style="color: red">
+								{{message}}
+							</span>
+						</td>
+					</tr>
+				</table></center>
+				<br>
+			{% endif %}
+		{% endif %}
+		
+		<div>
+			<center><table class="tabla-style">
+				<tr>
+					<td class="tabla-header"><b>ID del Proceso</b></td>
+					<td class="tabla-header"><b>Nombre del Proceso</b></td>
+					<td class="tabla-header"><b>Tiempo requerido (horas)</b></td>
+				</tr>
+				<tr>
+					<td class="tabla-data">{{proceso.id}}</td>
+					<td class="tabla-data">{{proceso.nombre}}</td>
+					<td class="tabla-data">{{proceso.tiempo}}</td>
+				</tr>
+			</table></center>
+			<br><br>
+			<p><b>Edite la información del proceso:</b></p>
+		</div>
+		
+		<form action="/procesos/editar/{{proceso.id}}/" method="POST" role="form">
+		{% csrf_token %}
+			<center><table>
+			{% for field in procesoForm %}
+				<tr>
+					<td style="padding:10px"><b>{{field.label}}:</b></td>
+					<td>{{field}}</td>
+					<td>
+						{{field.errors}}
+					</td>
+				</tr>
+			{% endfor %}
+			</table></center>
+			
+			<br><br>
+			<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+			<a class="btn btn-default" href="/procesos/">Cancelar</a>
+		</form>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock Content %}

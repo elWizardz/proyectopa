@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Líneas de Producción - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+	
+<div class="row section-black">
+	<div class="col-lg-12">
+		<h1>Líneas de Producción</h1>
+		<br><br>
+		<center><table class="tabla-style">
+			<tr>
+				<td class="tabla-header"><b>ID de la Línea</b></td>
+				<td class="tabla-header"><b>Nombre de la Línea</b></td>
+				<td class="tabla-header"><b>Capacidad (Productos)</b></td>
+			</tr>
+			{% for object in lineadeproduccion %}
+			<tr>
+				<td class="tabla-data">{{object.id}}</td>
+				<td class="tabla-data">{{object.nombre}}</td>
+				<td class="tabla-data">{{object.capacidad}}</td>
+			</tr>
+			{% endfor %}
+		</table></center>
+		<br><br>
+		<a class="btn btn-success" href="/lineasdeproduccion/agregar/">Agregar Línea</a>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarLinea">Editar Línea</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrarLinea">Borrar Línea</button>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="row section-white">
+	<div class="col-lg-12">
+		<h3><center>Descripción</center></h3><br>
+		<p>En esta sección se muestran las líneas de producción que han sido agregadas al sistema de manufactura. Puede dar de</p>
+		<p>alta una línea seleccionando el botón de Agregar Línea, puede modificar una línea seleccionando el</p>
+		<p>botón de Editar Línea, o puede dar de baja una línea con el botón de Borrar Línea.</p>
+		<br>
+		<p>Debe tener en cuenta que no se puede dar de baja una línea de producción si se encuentra en la orden de algún producto.</p>
+		<br><br>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="modal fade" id="modalEditarLinea">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Editar Línea</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione la línea de producción que desea editar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID de la Línea:</b>
+						</td>
+						<td>
+							<select id="lineasListEditar" name="lineasListEditar">
+							{% for object in lineadeproduccion %}
+								<option> {{object.id}} </option>
+							{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="editarLineaButton" id="editarLineaButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+<div class="modal fade" id="modalBorrarLinea">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Borrar Línea</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione la línea de producción que desea borrar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID de la Línea:</b>
+						</td>
+						<td>
+							<select id="lineasListBorrar" name="lineasListBorrar">
+								{% for object in lineadeproduccion %}
+									<option> {{object.id}} </option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="borrarLineaButton" id="borrarLineaButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+{% endblock Content %}

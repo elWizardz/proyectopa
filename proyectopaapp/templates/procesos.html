@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Procesos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+	
+<div class="row section-black">
+	<div class="col-lg-12">
+		<h1>Procesos</h1>
+		<br><br>
+		<center><table class="tabla-style" name="tablaProcesos">
+			<tr>
+				<td class="tabla-header"><b>ID del Proceso</b></td>
+				<td class="tabla-header"><b>Nombre del Proceso</b></td>
+				<td class="tabla-header"><b>Tiempo Requerido (Horas)</b></td>
+			</tr>
+			{% for object in proceso %}
+			<tr>
+				<td class="tabla-data">{{object.id}}</td>
+				<td class="tabla-data">{{object.nombre}}</td>
+				<td class="tabla-data">{{object.tiempo}}</td>
+			</tr>
+			{% endfor %}
+		</table></center>
+		<br><br>
+		<a class="btn btn-success" href="/procesos/agregar/">Agregar Proceso</a>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarProceso">Editar Proceso</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrarProceso">Borrar Proceso</button>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="row section-white">
+	<div class="col-lg-12">
+		<h3><center>Descripción</center></h3><br>
+		<p>En esta sección se muestran los procesos que han sido agregados al sistema de manufactura. Puede dar de</p>
+		<p>alta un proceso seleccionando el botón de Agregar Proceso, puede modificar un proceso seleccionando el</p>
+		<p>botón de Editar Proceso, o puede dar de baja un proceso con el botón de Borrar Proceso.</p>
+		<br>
+		<p>Debe tener en cuenta que no se puede dar de baja un proceso si se encuentra en la orden de algún producto.</p>
+		<br><br>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+<div class="modal fade" id="modalEditarProceso">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Editar Proceso</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione el proceso que desea editar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID del Proceso:</b>
+						</td>
+						<td>
+							<select id="procesosListEditar" name="procesosListEditar">
+							{% for object in proceso %}
+								<option> {{object.id}} </option>
+							{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="editarProcesoButton" id="editarProcesoButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+<div class="modal fade" id="modalBorrarProceso">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3><center>Borrar Proceso</center></h3>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<p>Seleccione el proceso que desea borrar:</p>
+					</tr>
+					<tr>
+						<td style="padding:10px">
+							<b>ID del Proceso:</b>
+						</td>
+						<td>
+							<select id="procesosListBorrar" name="procesosListBorrar">
+								{% for object in proceso %}
+									<option> {{object.id}} </option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div class="modal-footer">
+					<button type="button" name="borrarProcesoButton" id="borrarProcesoButton" class="btn btn-primary">Continuar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				</div> <!-- modal-footer -->
+			</div> <!-- modal-body -->
+		</div> <!-- modal-content -->
+	</div> <!-- modal-dialog -->
+</div> <!-- modal fade -->
+
+{% endblock Content %}
