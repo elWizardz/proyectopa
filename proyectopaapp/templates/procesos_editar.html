@@ -9,7 +9,7 @@
 {% block Content %}
 
 <div class="row section-black">
-	
+
 	<div class="col-lg-12">
 		<h1><center>Editar Proceso<center></h1>
 		<br>
@@ -44,24 +44,26 @@
 				<br>
 			{% endif %}
 		{% endif %}
-		
+
 		<div>
 			<center><table class="tabla-style">
 				<tr>
 					<td class="tabla-header"><b>ID del Proceso</b></td>
 					<td class="tabla-header"><b>Nombre del Proceso</b></td>
 					<td class="tabla-header"><b>Tiempo requerido (horas)</b></td>
+                    <td class="tabla-header"><b>Capacidad del Proceso </b></td>
 				</tr>
 				<tr>
 					<td class="tabla-data">{{proceso.id}}</td>
 					<td class="tabla-data">{{proceso.nombre}}</td>
 					<td class="tabla-data">{{proceso.tiempo}}</td>
+                    <td class="tabla-data">{{proceso.capacidad}}</td>
 				</tr>
 			</table></center>
 			<br><br>
 			<p><b>Edite la información del proceso:</b></p>
 		</div>
-		
+
 		<form action="/procesos/editar/{{proceso.id}}/" method="POST" role="form">
 		{% csrf_token %}
 			<center><table>
@@ -75,7 +77,7 @@
 				</tr>
 			{% endfor %}
 			</table></center>
-			
+
 			<br><br>
 			<button type="submit" class="btn btn-primary">Guardar Cambios</button>
 			<a class="btn btn-default" href="/procesos/">Cancelar</a>
