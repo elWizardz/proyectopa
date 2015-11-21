@@ -22,9 +22,13 @@
 			<tr>
 				<td class="tabla-data">{{object.id}}</td>
 				<td class="tabla-data">{{object.nombre}}</td>
-				<td class="tabla-data">
-				                                  {{object.procesos.all}}</td>
-				<td class="tabla-data">{{object.procesos.all}}</td>
+				<td class="tabla-data"> 
+					<ul>
+					{% for proceso in object.procesos.all %}
+						<li>{{proceso.nombre}}</li>
+					{% endfor %}
+					</ul>
+				</td>
 			</tr>
 			{% endfor %}
 		</table></center>
