@@ -15,7 +15,7 @@ def index(request):
 ####		   P R O C E S O S         ####
 ###########################################
 '''
-	
+
 def procesos(request):
 	proceso = Proceso.objects.all()
 	procesoForm = ProcesoForm()
@@ -43,6 +43,7 @@ def procesosEditar(request, proceso):
 			proceso = Proceso.objects.get(id = proceso)
 			proceso.nombre = request.POST['nombre']
 			proceso.tiempo = request.POST['tiempo']
+			proceso.capacidad = request.POST['capacidad']
 			proceso.save()
 			procesoForm = ProcesoForm()
 			message = "Los cambios han sido guardados."
@@ -55,7 +56,7 @@ def procesosEditar(request, proceso):
 		procesoForm = ProcesoForm()
 		proceso = Proceso.objects.get(id = proceso)
 		return render_to_response("procesos_editar.html", {"proceso": proceso, "procesoForm": procesoForm, "isAction": False}, context_instance = RequestContext(request))
-		
+
 def procesosBorrar(request, proceso):
 	if request.method == 'POST':
 		proceso = Proceso.objects.get(id = proceso)
@@ -64,18 +65,18 @@ def procesosBorrar(request, proceso):
 	else:
 		proceso = Proceso.objects.get(id = proceso)
 		return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
-	
+
 '''
 ######################################################
 ####     L I N E A S  D E  P R O D U C C I O N    ####
 ######################################################
-'''	
+'''
 
 def lineasdeproduccion(request):
 	lineadeproduccion = LineaDeProduccion.objects.all()
 	lineaDeProduccionForm = LineaDeProduccionForm()
 	return render_to_response("lineasdeproduccion.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm}, context_instance = RequestContext(request))
-	
+
 def lineasdeproduccionAgregar(request):
 	if request.method == 'POST':
 		lineaDeProduccionForm = LineaDeProduccionForm(request.POST)
@@ -90,7 +91,7 @@ def lineasdeproduccionAgregar(request):
 	else:
 		lineaDeProduccionForm = LineaDeProduccionForm()
 		return render_to_response("lineasdeproduccion_agregar.html", {"lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
-		
+
 def lineasdeproduccionEditar(request, lineadeproduccion):
 	if request.method == 'POST':
 		lineaDeProduccionForm = LineaDeProduccionForm(request.POST)
@@ -110,7 +111,7 @@ def lineasdeproduccionEditar(request, lineadeproduccion):
 		lineaDeProduccionForm = LineaDeProduccionForm()
 		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
 		return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
-		
+
 def lineasdeproduccionBorrar(request, lineadeproduccion):
 	if request.method == 'POST':
 		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
@@ -119,7 +120,7 @@ def lineasdeproduccionBorrar(request, lineadeproduccion):
 	else:
 		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
 		return render_to_response("lineasdeproduccion_borrar.html", {"lineadeproduccion": lineadeproduccion}, context_instance = RequestContext(request))
-		
+
 '''
 #############################################
 ####	      P R O D U C T O S          ####
@@ -145,7 +146,7 @@ def productosAgregar(request):
 	else:
 		productoForm = ProductoForm()
 		return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
-		
+
 def productosEditar(request, producto):
 	if request.method == 'POST':
 		productoForm = ProductoForm(request.POST)
@@ -165,7 +166,7 @@ def productosEditar(request, producto):
 		productoForm = ProductoForm()
 		producto = Producto.objects.get(id = producto)
 		return render_to_response("productos_editar.html", {"producto": producto, "productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
-		
+
 def productosBorrar(request, producto):
 	if request.method == 'POST':
 		producto = Producto.objects.get(id = producto)
