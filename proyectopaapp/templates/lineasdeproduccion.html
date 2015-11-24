@@ -16,13 +16,19 @@
 			<tr>
 				<td class="tabla-header"><b>ID de la Línea</b></td>
 				<td class="tabla-header"><b>Nombre de la Línea</b></td>
-				<td class="tabla-header"><b>Capacidad (Productos)</b></td>
+				<td class="tabla-header"><b>Procesos</b></td>
 			</tr>
 			{% for object in lineadeproduccion %}
 			<tr>
 				<td class="tabla-data">{{object.id}}</td>
 				<td class="tabla-data">{{object.nombre}}</td>
-				<td class="tabla-data">{{object.capacidad}}</td>
+				<td class="tabla-data"> 
+					<ul>
+					{% for proceso in object.procesos.all %}
+						<li>{{proceso.nombre}}</li>
+					{% endfor %}
+					</ul>
+				</td>
 			</tr>
 			{% endfor %}
 		</table></center>
