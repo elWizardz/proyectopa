@@ -9,14 +9,16 @@ class Proceso(models.Model):
 	capacidad = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(999)])
 	def __str__(self):
 		return self.nombre
-	
+
 class LineaDeProduccion(models.Model):
 	nombre = models.CharField(max_length = 50)
 	procesos = models.ManyToManyField(Proceso)
 
 	def __str__(self):
 		return self.nombre
-	
+
 class Producto(models.Model):
 	nombre = models.CharField(max_length = 50)
-	tiempoDeEntrada = models.DateTimeField()
+	#tiempoDeEntrada = models.DateTimeField()
+	cantidad = models.PositiveIntegerField(validators = [MinValueValidator(1), MaxValueValidator(999)])
+	lineaDeProduccion = models.ForeignKey(LineaDeProduccion)

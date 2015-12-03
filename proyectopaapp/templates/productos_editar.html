@@ -9,7 +9,7 @@
 {% block Content %}
 
 <div class="row section-black">
-	
+
 	<div class="col-lg-12">
 		<h1><center>Editar Producto<center></h1>
 		<br>
@@ -44,24 +44,26 @@
 				<br>
 			{% endif %}
 		{% endif %}
-		
+
 		<div>
 			<center><table class="tabla-style">
 				<tr>
 					<td class="tabla-header"><b>ID del Producto</b></td>
 					<td class="tabla-header"><b>Nombre del Producto</b></td>
-					<td class="tabla-header"><b>Tiempo de Entrada</b></td>
+					<td class="tabla-header"><b>Cantidad de productos</b></td>
+                    <td class="tabla-header"><b>Lineas de Produccion</b></td>
 				</tr>
 				<tr>
 					<td class="tabla-data">{{producto.id}}</td>
 					<td class="tabla-data">{{producto.nombre}}</td>
-					<td class="tabla-data">{{producto.tiempo}}</td>
+					<td class="tabla-data">{{producto.cantidad}}</td>
+                    <td class="tabla-data">{{producto.lineaDeProduccion}}</td>
 				</tr>
 			</table></center>
 			<br><br>
 			<p><b>Edite la información del producto:</b></p>
 		</div>
-		
+
 		<form action="/productos/editar/{{producto.id}}/" method="POST" role="form">
 		{% csrf_token %}
 			<center><table>
@@ -75,7 +77,7 @@
 				</tr>
 			{% endfor %}
 			</table></center>
-			
+
 			<br><br>
 			<button type="submit" class="btn btn-primary">Guardar Cambios</button>
 			<a class="btn btn-default" href="/productos/">Cancelar</a>

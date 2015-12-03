@@ -153,7 +153,8 @@ def productosEditar(request, producto):
 		if productoForm.is_valid():
 			producto = Producto.objects.get(id = producto)
 			producto.nombre = request.POST['nombre']
-			producto.tiempo = request.POST['tiempoDeEntrada']
+			producto.cantidad = request.POST['cantidad']
+			producto.lineaDeProduccion = request.POST['lineaDeProduccion']
 			producto.save()
 			productoForm = ProductoForm()
 			message = "Los cambios han sido guardados."
