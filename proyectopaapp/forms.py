@@ -39,13 +39,19 @@ class LineaDeProduccionForm(forms.ModelForm):
 class ProductoForm(forms.ModelForm):
 	class Meta:
 		model = Producto
-		fields = ['nombre', 'tiempoDeEntrada']
+		fields = ['nombre', 'cantidad', 'lineaDeProduccion']
 		error_messages = {
 			'nombre' : {
 				'required' : 'Indique el nombre del proceso',
 			},
-			'tiempoDeEntrada' : {
-				'required' : 'Indique el tiempo requerido por el proceso',
-				'invalid' : 'Tiempo invalido',
+			'cantidad' : {
+				'required' : 'Indique la cantidad de productos',
+				'invalid' : 'Cantidad invalida',
+			},
+			#TODO
+			'lineaDeProduccion' : {
+				'required' : 'Indique la linea de produccion',
+				'invalid' : 'no es una linea de produccion valida',
+
 			}
 		}
