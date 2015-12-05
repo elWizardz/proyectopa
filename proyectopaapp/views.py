@@ -94,13 +94,18 @@ def lineasdeproduccionAgregar(request):
 
 def lineasdeproduccionEditar(request, lineadeproduccion):
 	if request.method == 'POST':
-		lineaDeProduccionForm = LineaDeProduccionForm(request.POST)
+		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
+		lineaDeProduccionForm = LineaDeProduccionForm(request.POST, instance= lineadeproduccion)
 		if lineaDeProduccionForm.is_valid():
-			lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
-			lineadeproduccion.nombre = request.POST['nombre']
-			lineadeproduccion.tiempo = request.POST['capacidad']
-			lineadeproduccion.save()
-			lineaDeProduccionForm = LineaDeProduccionForm()
+			print("que esta pasando")
+
+			#lineadeproduccion.nombre = request.POST['nombre']
+			#print(request.POST['procesos'])
+			#lineadeproduccion.procesos = request.POST['procesos']
+			#print(lineadeproduccion.procesos)
+			#lineadeproduccion.save()
+			lineaDeProduccionForm.save()
+			#lineaDeProduccionForm = LineaDeProduccionForm()
 			message = "Los cambios han sido guardados."
 			return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
 		else:
@@ -108,8 +113,8 @@ def lineasdeproduccionEditar(request, lineadeproduccion):
 			message = "No se pudo guardar los cambios."
 			return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": True, "isSuccess": False, "message": message}, context_instance = RequestContext(request))
 	else:
-		lineaDeProduccionForm = LineaDeProduccionForm()
 		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
+		lineaDeProduccionForm = LineaDeProduccionForm(instance = lineadeproduccion)
 		return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
 
 def lineasdeproduccionBorrar(request, lineadeproduccion):
@@ -119,6 +124,7 @@ def lineasdeproduccionBorrar(request, lineadeproduccion):
 		return redirect("lineasdeproduccion")
 	else:
 		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
+		print(lineadeproduccion.procesos)
 		return render_to_response("lineasdeproduccion_borrar.html", {"lineadeproduccion": lineadeproduccion}, context_instance = RequestContext(request))
 
 '''

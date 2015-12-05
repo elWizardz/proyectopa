@@ -9,7 +9,7 @@
 {% block Content %}
 
 <div class="row section-black">
-	
+
 	<div class="col-lg-12">
 		<h1><center>Editar Línea de Producción<center></h1>
 		<br>
@@ -44,7 +44,7 @@
 				<br>
 			{% endif %}
 		{% endif %}
-		
+
 		<div>
 			<center><table class="tabla-style">
 				<tr>
@@ -57,8 +57,8 @@
 					<td class="tabla-data">{{lineadeproduccion.nombre}}</td>
 					<td class="tabla-data">
 						<ul>
-						{% for proceso in lineadeproduccion.procesos.all %}
-							<li>{{proceso.nombre}}</li>
+						{% for procesos in lineadeproduccion.procesos.all %}
+							<li>{{procesos.nombre}}</li>
 						{% endfor %}
 						</ul>
 					</td>
@@ -67,7 +67,7 @@
 			<br><br>
 			<p><b>Edite la información de la línea:</b></p>
 		</div>
-		
+
 		<form action="/lineasdeproduccion/editar/{{lineadeproduccion.id}}/" method="POST" role="form">
 		{% csrf_token %}
 			<center><table>
@@ -81,7 +81,7 @@
 				</tr>
 			{% endfor %}
 			</table></center>
-			
+
 			<br><br>
 			<button type="submit" class="btn btn-primary">Guardar Cambios</button>
 			<a class="btn btn-default" href="/lineasdeproduccion/">Cancelar</a>

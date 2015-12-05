@@ -9,28 +9,34 @@
 {% block Content %}
 
 <div class="row section-black">
-	
+
 	<div class="col-lg-12">
 		<h1><center>Borrar Línea de Producción<center></h1>
 		<br>
-		
+
 		<div>
 			<center><table class="tabla-style">
 				<tr>
 					<td class="tabla-header"><b>ID de la Línea</b></td>
 					<td class="tabla-header"><b>Nombre de la Línea</b></td>
-					<td class="tabla-header"><b>Capacidad (productos)</b></td>
+					<td class="tabla-header"><b>Nombre del Proceso</b></td>
 				</tr>
 				<tr>
 					<td class="tabla-data">{{lineadeproduccion.id}}</td>
 					<td class="tabla-data">{{lineadeproduccion.nombre}}</td>
-					<td class="tabla-data">{{lineadeproduccion.capacidad}}</td>
+					<td class="tabla-data">
+                        <ul>
+                        {% for procesos in lineadeproduccion.processos.all %}
+                            <li>{{procesos.nombre}}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
 				</tr>
 			</table></center>
 			<br><br>
 			<p><b>Seguro que desea borrar esta línea de producción?</b></p>
 		</div>
-		
+
 		<form action="/lineasdeproduccion/borrar/{{lineadeproduccion.id}}/" method="POST" role="form">
 		{% csrf_token %}
 			<br><br>

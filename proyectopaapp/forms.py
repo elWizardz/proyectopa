@@ -31,8 +31,8 @@ class LineaDeProduccionForm(forms.ModelForm):
 			'nombre' : {
 				'required' : 'Indique el nombre del proceso',
 			},
-                        #TODO
 			'procesos' : {
+				'required' : 'Indique los processos que quiere',
 			}
 		}
 
