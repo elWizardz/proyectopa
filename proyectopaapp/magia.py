@@ -8,7 +8,7 @@ procesos = {}
 class ProcesoMagia:
 	def __init__(self, id, tiempo, capacidad):
 		self.id = id
-		self.tiempo = tiempo
+		self.tiempo = tiempo * 60
 		self.capacidad = capacidad
 		self.corriendo = deque()
 		self.espera = deque()
