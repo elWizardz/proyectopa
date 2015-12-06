@@ -22,3 +22,15 @@ class Producto(models.Model):
 	#tiempoDeEntrada = models.DateTimeField()
 	cantidad = models.PositiveIntegerField(validators = [MinValueValidator(1), MaxValueValidator(999)])
 	lineaDeProduccion = models.ForeignKey(LineaDeProduccion)
+
+	def __str__(self):
+		return self.nombre
+
+
+class Instancia(models.Model):
+	producto = models.ForeignKey(Producto)
+	proceso = models.ForeignKey(Proceso)
+	lista_pendientes = models.TextField(null = True)
+
+	def __str__(self):
+		return self.producto.nombre + " " + self.proceso.nombre
