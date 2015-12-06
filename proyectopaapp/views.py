@@ -4,6 +4,8 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from proyectopaapp.models import Proceso, LineaDeProduccion, Producto, Instancia
 from proyectopaapp.forms import ProcesoForm, LineaDeProduccionForm, ProductoForm
+import json
+from proyectopaapp import magia
 
 # Create your views here.
 
@@ -25,7 +27,8 @@ def procesosAgregar(request):
 	if request.method == 'POST':
 		procesoForm = ProcesoForm(request.POST)
 		if procesoForm.is_valid():
-			procesoForm.save()
+			proceso = procesoForm.save()
+			magia.agregarProceso(proceso)
 			procesoForm = ProcesoForm()
 			message = "El proceso se ha agregado exitosamente."
 			return render_to_response("procesos_agregar.html", {"procesoForm": procesoForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
@@ -64,6 +67,8 @@ def procesosBorrar(request, proceso):
 		return redirect("procesos")
 	else:
 		proceso = Proceso.objects.get(id = proceso)
+	def __str__(self):
+		return self.nombre
 		return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
 
 '''
@@ -144,10 +149,12 @@ def productosAgregar(request):
 		if productoForm.is_valid():
 			producto = productoForm.save()
 			proceso = producto.lineaDeProduccion.procesos.all()[0]
+			lista_procesos = [proc.id for proc in producto.lineaDeProduccion.procesos.all()]
+			print(lista_procesos)
 			for x in range(producto.cantidad):
-				instancia = Instancia(producto = producto, proceso = proceso)
+				instancia = Instancia(producto = producto, proceso = proceso, lista_pendientes = json.dumps(lista_procesos))
 				instancia.save()
-				print(x)
+				magia.procesos[proceso.id].agregar(instancia)
 			productoForm = ProductoForm()
 			message = "El producto se ha agregado exitosamente."
 			return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
