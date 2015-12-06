@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from proyectopaapp.models import Proceso, LineaDeProduccion, Producto
+from proyectopaapp.models import Proceso, LineaDeProduccion, Producto, Instancia
 from proyectopaapp.forms import ProcesoForm, LineaDeProduccionForm, ProductoForm
 
 # Create your views here.
@@ -142,7 +142,12 @@ def productosAgregar(request):
 	if request.method == 'POST':
 		productoForm = ProductoForm(request.POST)
 		if productoForm.is_valid():
-			productoForm.save()
+			producto = productoForm.save()
+			proceso = producto.lineaDeProduccion.procesos.all()[0]
+			for x in range(producto.cantidad):
+				instancia = Instancia(producto = producto, proceso = proceso)
+				instancia.save()
+				print(x)
 			productoForm = ProductoForm()
 			message = "El producto se ha agregado exitosamente."
 			return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
