@@ -18,7 +18,7 @@ class ProcesoMagia:
 		if len(self.corriendo) < self.capacidad:
 			self.corriendo.append(instancia)
 			Timer(1.0 * self.tiempo, self.moveProcess).start()
-			
+
 		else:
 			self.espera.append(instancia)
 
@@ -33,6 +33,8 @@ class ProcesoMagia:
 			procesos[pendientes[0]].agregar(instancia)
 		else:
 			print("TERMINADO!" + str(instancia))
+			instancia.terminado = True
+			instancia.save()
 		if len(self.espera) > 0:
 			self.corriendo.append(self.espera.popleft())
 			Timer(1.0 * self.tiempo, self.moveProcess).start()
@@ -42,5 +44,3 @@ for proc in Proceso.objects.all():
 
 def agregarProceso(proc):
 	procesos[proc.id] = ProcesoMagia(proc.id, proc.tiempo, proc.capacidad)
-
-
