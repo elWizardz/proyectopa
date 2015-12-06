@@ -17,7 +17,7 @@ urlpatterns = [
 
 	url(r'^productos/$', views.productos, name="productos"),
 	url(r'^productos/agregar/$', views.productosAgregar),
-	url(r'^productos/editar/(?P<producto>([0-9]+))/$', views.productosEditar),
+	url(r'^productos/ver/(?P<producto>([0-9]+))/$', views.productosVer),
 	url(r'^productos/borrar/(?P<producto>([0-9]+))/$', views.productosBorrar),
 
 	url(r'^assets/res/(?P<path>.*)/$', 'django.views.static.serve',
