@@ -36,10 +36,10 @@ $(document).ready(function()
 		}
 	});
 	
-	$('#editarProductoButton').click(function(){
-		var producto = $('#productosListEditar').val();
+	$('#verProductoButton').click(function(){
+		var producto = $('#productosListVer').val();
 		if (producto != null) {
-			window.location.href = "/productos/editar/" + producto + "/";
+			window.location.href = "/productos/ver/" + producto + "/";
 		} else {
 			window.location.href = "/productos/";
 		}

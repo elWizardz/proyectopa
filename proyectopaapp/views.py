@@ -67,8 +67,6 @@ def procesosBorrar(request, proceso):
 		return redirect("procesos")
 	else:
 		proceso = Proceso.objects.get(id = proceso)
-	def __str__(self):
-		return self.nombre
 		return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
 
 '''
@@ -165,26 +163,20 @@ def productosAgregar(request):
 		productoForm = ProductoForm()
 		return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
 
-def productosEditar(request, producto):
-	if request.method == 'POST':
-		productoForm = ProductoForm(request.POST)
-		if productoForm.is_valid():
-			producto = Producto.objects.get(id = producto)
-			producto.nombre = request.POST['nombre']
-			producto.cantidad = request.POST['cantidad']
-			producto.lineaDeProduccion = request.POST['lineaDeProduccion']
-			producto.save()
-			productoForm = ProductoForm()
-			message = "Los cambios han sido guardados."
-			return render_to_response("productos_editar.html", {"producto": producto, "productoForm": productoForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
-		else:
-			producto = Producto.objects.get(id = producto)
-			message = "No se pudo guardar los cambios."
-			return render_to_response("productos_editar.html", {"producto": producto, "productoForm": productoForm, "isAction": True, "isSuccess": False, "message": message}, context_instance = RequestContext(request))
-	else:
-		productoForm = ProductoForm()
-		producto = Producto.objects.get(id = producto)
-		return render_to_response("productos_editar.html", {"producto": producto, "productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
+def productosVer(request, producto):
+	producto = Producto.objects.get(id = producto)
+	instancias = Instancia.objects.filter(producto__nombre = producto.nombre)
+	procesos = producto.lineaDeProduccion.procesos.all()
+	cuentas = []
+	for x in procesos:
+		cuentas.append(Instancia.objects.filter(proceso__nombre = x.nombre).filter(producto__nombre = producto.nombre).filter(terminado=False).count())
+
+	counter = 0
+	for instance in instancias:
+		if instance.terminado:
+			counter += 1
+	return render_to_response("productos_ver.html", {"producto": producto, "instancias": instancias, "procesos": procesos, "cuentas": cuentas, "counter": counter, "isAction": False}, context_instance = RequestContext(request))
+
 
 def productosBorrar(request, producto):
 	if request.method == 'POST':

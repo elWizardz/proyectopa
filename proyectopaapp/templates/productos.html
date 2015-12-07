@@ -30,7 +30,7 @@
 		</table></center>
 		<br><br>
 		<a class="btn btn-success" href="/productos/agregar/">Agregar Producto</a>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarProducto">Editar Producto</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerProducto">Ver Producto</button>
 		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBorrarProducto">Borrar Producto</button>
 	</div> <!-- col -->
 </div> <!-- row -->
@@ -45,11 +45,11 @@
 	</div> <!-- col -->
 </div> <!-- row -->
 
-<div class="modal fade" id="modalEditarProducto">
+<div class="modal fade" id="modalVerProducto">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3><center>Editar Producto</center></h3>
+				<h3><center>Ver Producto</center></h3>
 			</div>
 			<div class="modal-body">
 				<table>
@@ -60,8 +60,9 @@
 						<td style="padding:10px">
 							<b>ID del Producto:</b>
 						</td>
+						
 						<td>
-							<select id="productosListEditar" name="productosListEditar">
+							<select id="productosListVer" name="productosListVer">
 							{% for object in producto %}
 								<option> {{object.id}} </option>
 							{% endfor %}
@@ -70,7 +71,7 @@
 					</tr>
 				</table>
 				<div class="modal-footer">
-					<button type="button" name="editarProductoButton" id="editarProductoButton" class="btn btn-primary">Continuar</button>
+					<button type="button" name="verProductoButton" id="verProductoButton" class="btn btn-primary">Continuar</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				</div> <!-- modal-footer -->
 			</div> <!-- modal-body -->

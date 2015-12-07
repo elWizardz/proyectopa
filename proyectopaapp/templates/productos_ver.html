@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block Title %}
+
+<title> Productos - Sistema de Manufactura </title>
+
+{% endblock Title %}
+
+{% block Content %}
+
+<div class="row section-black">
+
+	<div class="col-lg-12">
+		<h1><center>Ver Producto</center></h1>
+		<div>
+			<center><table class="tabla-style">
+				<tr>
+					<td class="tabla-header"><b>ID del Producto</b></td>
+					<td class="tabla-header"><b>Nombre del Producto</b></td>
+					<td class="tabla-header"><b>Cantidad de productos</b></td>
+                    <td class="tabla-header"><b>Lineas de Produccion</b></td>
+                    <td class="tabla-header"><b>Estado del Producto</b></td>
+				</tr>
+				<tr>
+					<td class="tabla-data">{{producto.id}}</td>
+					<td class="tabla-data">{{producto.nombre}}</td>
+					<td class="tabla-data">{{producto.cantidad}}</td>
+                    <td class="tabla-data">{{producto.lineaDeProduccion}}</td>
+                    <td class="tabla-data">
+                        {% if counter == producto.cantidad %}
+                            Terminado
+                        {% else %}
+                            Incompleto
+                        {% endif %}
+                    </td>
+				</tr>
+			</table>
+			<br>
+				{% if counter != producto.cantidad %}
+				<table class="tabla-style">
+				<tr>
+					{% for object in procesos.all %}
+					<td class="tabla-header"><b>{{object.nombre}}</b></td>
+					{% endfor %}
+					<td class="tabla-header"><b>Terminados</b></td>
+				</tr>
+				<tr>
+					{% for object in cuentas %}
+						<td class="tabla-data">{{object}}</td>
+					{% endfor %}
+					<td class="tabla-data">{{counter}}</td>	
+				</tr>
+				</table>
+			{% endif %}
+			</center>
+			<br><br>
+		</div>
+	</div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock Content %}
