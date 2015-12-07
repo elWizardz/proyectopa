@@ -164,14 +164,24 @@ def productosAgregar(request):
 		return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
 
 def productosVer(request, producto):
-	exists = True
 	producto = Producto.objects.get(id = producto)
 	instancias = Instancia.objects.filter(producto__nombre = producto.nombre)
+	procesos = producto.lineaDeProduccion.procesos
+	cuentas = []
+	cuenta = 0
+	for x in procesos.all():
+		cuentas.append(Instancia.objects.filter(proceso__nombre = x.nombre).filter(producto__nombre = producto.nombre).count())
+	#for x in procesos.all():
+	#	cuenta = 0
+	#	for y in instancias.all():
+	#		if y.proceso.nombre == x.nombre:
+	#			 cuenta+=1
+	#	cuentas.append(cuenta)
 	counter = 0
 	for instance in instancias:
 		if instance.terminado:
 			counter += 1
-	return render_to_response("productos_ver.html", {"producto": producto, "instancias": instancias, "counter": counter, "isAction": False}, context_instance = RequestContext(request))
+	return render_to_response("productos_ver.html", {"producto": producto, "instancias": instancias, "procesos": procesos, "cuentas": cuentas, "counter": counter, "isAction": False}, context_instance = RequestContext(request))
 
 
 def productosBorrar(request, producto):

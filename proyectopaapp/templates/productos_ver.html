@@ -34,7 +34,25 @@
                         {% endif %}
                     </td>
 				</tr>
-			</table></center>
+			</table>
+			<br>
+				{% if counter != producto.cantidad %}
+				<table class="tabla-style">
+				<tr>
+					{% for object in procesos.all %}
+					<td class="tabla-header"><b>{{object.nombre}}</b></td>
+					{% endfor %}
+					<td class="tabla-header"><b>Terminados</b></td>
+				</tr>
+				<tr>
+					{% for object in cuentas %}
+						<td class="tabla-data">{{object}}</td>
+					{% endfor %}
+					<td class="tabla-data">{{counter}}</td>	
+				</tr>
+				</table>
+			{% endif %}
+			</center>
 			<br><br>
 		</div>
 	</div> <!-- col -->
