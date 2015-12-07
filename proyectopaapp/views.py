@@ -67,8 +67,6 @@ def procesosBorrar(request, proceso):
 		return redirect("procesos")
 	else:
 		proceso = Proceso.objects.get(id = proceso)
-	def __str__(self):
-		return self.nombre
 		return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
 
 '''
