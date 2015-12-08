@@ -178,11 +178,11 @@ def productosAgregar(request):
 def productosVer(request, id_producto):
 	if Producto.objects.filter(id = id_producto).exists():
 		producto = Producto.objects.get(id = id_producto)
-		instancias = Instancia.objects.filter(producto__nombre = producto.nombre)
+		instancias = Instancia.objects.filter(producto = producto)
 		procesos = producto.lineaDeProduccion.procesos.all()
 		cuentas = []
 		for x in procesos:
-			cuentas.append(Instancia.objects.filter(proceso__nombre = x.nombre).filter(producto__nombre = producto.nombre).filter(terminado=False).count())
+			cuentas.append(x.instancia_set.filter(producto = producto).filter(terminado=False).count())
 
 		counter = 0
 		for instance in instancias:
