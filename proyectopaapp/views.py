@@ -39,11 +39,11 @@ def procesosAgregar(request):
 		procesoForm = ProcesoForm()
 		return render_to_response("procesos_agregar.html", {"procesoForm": procesoForm, "isAction": False}, context_instance = RequestContext(request))
 
-def procesosEditar(request, proceso):
+def procesosEditar(request, id_proceso):
 	if request.method == 'POST':
 		procesoForm = ProcesoForm(request.POST)
 		if procesoForm.is_valid():
-			proceso = Proceso.objects.get(id = proceso)
+			proceso = Proceso.objects.get(id = id_proceso)
 			proceso.nombre = request.POST['nombre']
 			proceso.tiempo = request.POST['tiempo']
 			proceso.capacidad = request.POST['capacidad']
@@ -52,22 +52,28 @@ def procesosEditar(request, proceso):
 			message = "Los cambios han sido guardados."
 			return render_to_response("procesos_editar.html", {"proceso": proceso, "procesoForm": procesoForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
 		else:
-			proceso = Proceso.objects.get(id = proceso)
+			proceso = Proceso.objects.get(id = id_proceso)
 			message = "No se pudo guardar los cambios."
 			return render_to_response("procesos_editar.html", {"proceso": proceso, "procesoForm": procesoForm, "isAction": True, "isSuccess": False, "message": message}, context_instance = RequestContext(request))
 	else:
 		procesoForm = ProcesoForm()
-		proceso = Proceso.objects.get(id = proceso)
-		return render_to_response("procesos_editar.html", {"proceso": proceso, "procesoForm": procesoForm, "isAction": False}, context_instance = RequestContext(request))
+		if Proceso.objects.filter(id = id_proceso).exists():
+			proceso = Proceso.objects.get(id = id_proceso)
+			return render_to_response("procesos_editar.html", {"proceso": proceso, "procesoForm": procesoForm, "isAction": False}, context_instance = RequestContext(request))
+		else:
+			return render_to_response("errorpage.html", {"message": "Error: No Existe Ese Proceso."}, context_instance = RequestContext(request))
 
-def procesosBorrar(request, proceso):
+def procesosBorrar(request, id_proceso):
 	if request.method == 'POST':
-		proceso = Proceso.objects.get(id = proceso)
+		proceso = Proceso.objects.get(id = id_proceso)
 		proceso.delete()
 		return redirect("procesos")
 	else:
-		proceso = Proceso.objects.get(id = proceso)
-		return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
+		if Proceso.objects.filter(id = id_proceso).exists():
+			proceso = Proceso.objects.get(id = id_proceso)
+			return render_to_response("procesos_borrar.html", {"proceso": proceso}, context_instance = RequestContext(request))
+		else:
+			return render_to_response("errorpage.html", {"message": "Error: No Existe Ese Proceso."}, context_instance = RequestContext(request))
 
 '''
 ######################################################
@@ -95,10 +101,10 @@ def lineasdeproduccionAgregar(request):
 		lineaDeProduccionForm = LineaDeProduccionForm()
 		return render_to_response("lineasdeproduccion_agregar.html", {"lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
 
-def lineasdeproduccionEditar(request, lineadeproduccion):
+def lineasdeproduccionEditar(request, id_linea):
 	if request.method == 'POST':
-		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
-		lineaDeProduccionForm = LineaDeProduccionForm(request.POST, instance= lineadeproduccion)
+		lineadeproduccion = LineaDeProduccion.objects.get(id = id_linea)
+		lineaDeProduccionForm = LineaDeProduccionForm(request.POST, instance = lineadeproduccion)
 		if lineaDeProduccionForm.is_valid():
 			print("que esta pasando")
 
@@ -112,23 +118,29 @@ def lineasdeproduccionEditar(request, lineadeproduccion):
 			message = "Los cambios han sido guardados."
 			return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": True, "isSuccess": True, "message": message}, context_instance = RequestContext(request))
 		else:
-			lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
+			lineadeproduccion = LineaDeProduccion.objects.get(id = id_linea)
 			message = "No se pudo guardar los cambios."
 			return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": True, "isSuccess": False, "message": message}, context_instance = RequestContext(request))
 	else:
-		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
-		lineaDeProduccionForm = LineaDeProduccionForm(instance = lineadeproduccion)
-		return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
-
-def lineasdeproduccionBorrar(request, lineadeproduccion):
+		if LineaDeProduccion.objects.filter(id = id_linea).exists():
+			lineadeproduccion = LineaDeProduccion.objects.get(id = id_linea)
+			lineaDeProduccionForm = LineaDeProduccionForm(instance = lineadeproduccion)
+			return render_to_response("lineasdeproduccion_editar.html", {"lineadeproduccion": lineadeproduccion, "lineaDeProduccionForm": lineaDeProduccionForm, "isAction": False}, context_instance = RequestContext(request))
+		else:
+			return render_to_response("errorpage.html", {"message": "Error: No Existe Esa Línea De Producción."}, context_instance = RequestContext(request))
+		
+def lineasdeproduccionBorrar(request, id_linea):
 	if request.method == 'POST':
-		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
+		lineadeproduccion = LineaDeProduccion.objects.get(id = id_linea)
 		lineadeproduccion.delete()
 		return redirect("lineasdeproduccion")
 	else:
-		lineadeproduccion = LineaDeProduccion.objects.get(id = lineadeproduccion)
-		print(lineadeproduccion.procesos)
-		return render_to_response("lineasdeproduccion_borrar.html", {"lineadeproduccion": lineadeproduccion}, context_instance = RequestContext(request))
+		if LineaDeProduccion.objects.filter(id = id_linea).exists():
+			lineadeproduccion = LineaDeProduccion.objects.get(id = id_linea)
+			print(lineadeproduccion.procesos)
+			return render_to_response("lineasdeproduccion_borrar.html", {"lineadeproduccion": lineadeproduccion}, context_instance = RequestContext(request))
+		else:
+			return render_to_response("errorpage.html", {"message": "Error: No Existe Esa Línea De Producción."}, context_instance = RequestContext(request))
 
 '''
 #############################################
@@ -163,26 +175,31 @@ def productosAgregar(request):
 		productoForm = ProductoForm()
 		return render_to_response("productos_agregar.html", {"productoForm": productoForm, "isAction": False}, context_instance = RequestContext(request))
 
-def productosVer(request, producto):
-	producto = Producto.objects.get(id = producto)
-	instancias = Instancia.objects.filter(producto__nombre = producto.nombre)
-	procesos = producto.lineaDeProduccion.procesos.all()
-	cuentas = []
-	for x in procesos:
-		cuentas.append(Instancia.objects.filter(proceso__nombre = x.nombre).filter(producto__nombre = producto.nombre).filter(terminado=False).count())
+def productosVer(request, id_producto):
+	if Producto.objects.filter(id = id_producto).exists():
+		producto = Producto.objects.get(id = id_producto)
+		instancias = Instancia.objects.filter(producto__nombre = producto.nombre)
+		procesos = producto.lineaDeProduccion.procesos.all()
+		cuentas = []
+		for x in procesos:
+			cuentas.append(Instancia.objects.filter(proceso__nombre = x.nombre).filter(producto__nombre = producto.nombre).filter(terminado=False).count())
 
-	counter = 0
-	for instance in instancias:
-		if instance.terminado:
-			counter += 1
-	return render_to_response("productos_ver.html", {"producto": producto, "instancias": instancias, "procesos": procesos, "cuentas": cuentas, "counter": counter, "isAction": False}, context_instance = RequestContext(request))
-
-
-def productosBorrar(request, producto):
+		counter = 0
+		for instance in instancias:
+			if instance.terminado:
+				counter += 1
+		return render_to_response("productos_ver.html", {"producto": producto, "instancias": instancias, "procesos": procesos, "cuentas": cuentas, "counter": counter, "isAction": False}, context_instance = RequestContext(request))
+	else:
+		return render_to_response("errorpage.html", {"message": "Error: No Existe Ese Producto."}, context_instance = RequestContext(request))
+		
+def productosBorrar(request, id_producto):
 	if request.method == 'POST':
-		producto = Producto.objects.get(id = producto)
+		producto = Producto.objects.get(id = id_producto)
 		producto.delete()
 		return redirect("productos")
 	else:
-		producto = Producto.objects.get(id = producto)
-		return render_to_response("productos_borrar.html", {"producto": producto}, context_instance = RequestContext(request))
+		if Producto.objects.filter(id = id_producto).exists():
+			producto = Producto.objects.get(id = id_producto)
+			return render_to_response("productos_borrar.html", {"producto": producto}, context_instance = RequestContext(request))
+		else:
+			return render_to_response("errorpage.html", {"message": "Error: No Existe Ese Producto."}, context_instance = RequestContext(request))

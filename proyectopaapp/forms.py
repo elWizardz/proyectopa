@@ -16,11 +16,11 @@ class ProcesoForm(forms.ModelForm):
 				'min_value' : 'Tiempo debe ser mayor a 0',
 			},
 			'capacidad' : {
-        			'required' : 'Indique la capacidad del proceso',
+				'required' : 'Indique la capacidad del proceso',
 				'invalid' : 'capacidad invalida',
 				'max_value' : 'Limite de capacidad excedida (MAX = 999)',
 				'min_value' : 'Capacidad debe ser mayor a 0',
-            		}
+            }
 		}
 
 class LineaDeProduccionForm(forms.ModelForm):

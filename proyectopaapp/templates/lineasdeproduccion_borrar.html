@@ -19,14 +19,14 @@
 				<tr>
 					<td class="tabla-header"><b>ID de la Línea</b></td>
 					<td class="tabla-header"><b>Nombre de la Línea</b></td>
-					<td class="tabla-header"><b>Nombre del Proceso</b></td>
+					<td class="tabla-header"><b>Procesos</b></td>
 				</tr>
 				<tr>
 					<td class="tabla-data">{{lineadeproduccion.id}}</td>
 					<td class="tabla-data">{{lineadeproduccion.nombre}}</td>
 					<td class="tabla-data">
                         <ul>
-                        {% for procesos in lineadeproduccion.processos.all %}
+                        {% for procesos in lineadeproduccion.procesos.all %}
                             <li>{{procesos.nombre}}</li>
                         {% endfor %}
                         </ul>
